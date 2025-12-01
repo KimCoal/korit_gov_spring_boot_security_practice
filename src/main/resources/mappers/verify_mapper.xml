@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.korit.security_practice.mapper.VerifyMapper">
+    <resultMap id="VerifyResultMap" type="com.korit.security_practice.entity.Verify">
+        <id property="verifyId" column="verify_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="verifyCode" column="verify_code"/>
+    </resultMap>
+    <insert id="addVerify">
+        insert into verify_tb values (0, #{userId}, #{verifyCode});
+    </insert>
+    <select id="findVerifyByUserId" resultMap="VerifyResultMap">
+        select * from verify_tb where user_id = #{userId};
+    </select>
+    <delete id="deleteVerifyByUserId">
+        delete from verify_tb where user_id = #{userId};
+    </delete>
+</mapper>
