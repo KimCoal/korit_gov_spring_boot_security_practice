@@ -1,6 +1,8 @@
 package com.korit.security_practice.config;
 
 import com.korit.security_practice.security.filter.JwtAuthenticationFilter;
+import com.korit.security_practice.security.handler.OAuth2SuccessHandler;
+import com.korit.security_practice.service.OAuth2PrincipalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final OAuth2PrincipalService oAuth2PrincipalService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -46,9 +50,15 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/signup", "/auth/signin").permitAll();
+            auth.requestMatchers("/auth/**", "/login/oauth2/**", "/oauth2/**", "/mail/**").permitAll();
             auth.anyRequest().authenticated();
         });
+
+        http.oauth2Login(oauth2 ->
+                        oauth2.userInfoEndpoint( user ->
+                                user.userService(oAuth2PrincipalService))
+                                .successHandler(oAuth2SuccessHandler)
+        );
 
         return http.build();
     }

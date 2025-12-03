@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이메일 인증</title>
+</head>
+<body>
+<h2>이메일 인증</h2>
+
+<form action="/mail/verify" method="post">
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>인증코드:</label><br>
+    <input type="text" name="code" required><br><br>
+
+    <button type="submit">인증하기</button>
+</form>
+
+</body>
+</html>

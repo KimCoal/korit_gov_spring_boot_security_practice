@@ -5,9 +5,9 @@
 <mapper namespace="com.korit.security_practice.mapper.UserMapper">
     <resultMap id="UserResultMap" type="com.korit.security_practice.entity.User">
         <id property="userId" column="user_id"/>
+        <result property="email" column="email"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
-        <result property="email" column="email"/>
         <result property="createDt" column="create_dt"/>
         <result property="updateDt" column="update_dt"/>
         <collection property="userRoles" resultMap="UserRoleMap"/>
@@ -49,7 +49,8 @@
     </select>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
-        insert into user_tb values (0, #{username}, #{password}, #{email}, now(), null);
+        insert into user_tb (user_id, email, password, username, create_dt, update_dt)
+        values (0, #{email}, #{password}, #{username}, now(), null);
     </insert>
 
     <select id="findUserByUserId" resultMap="UserResultMap">

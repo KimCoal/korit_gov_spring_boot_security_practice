@@ -27,7 +27,7 @@ public class AuthService {
     private final JwtUtils jwtUtils;
     private final VerifyRepository verifyRepository;
 
-    public ApiRespDto<?> addUser (SignUpReqDto signupReqDto) {
+    public ApiRespDto<?> signup (SignUpReqDto signupReqDto) {
         // email 중복확인
         Optional<User> foundUser = userRepository.findUserByEmail(signupReqDto.getEmail());
         if (foundUser.isPresent()) {

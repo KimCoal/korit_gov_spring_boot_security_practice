@@ -1,0 +1,47 @@
+1. OAuth2 사용해서 회원가입 / merge
+-- 회원가입 끝, 일반 회원가입, oauth2 회원가입 둘다 verifyCode 가입시 발급
+-- merge 완성
+
+2. SMTP 사용해서 메일을 보낼때 verifyCode 같이 보내기
+-- 보낼때 Principal 필요만 하게 해서 Token이 있는 사용자가 Mail보낼수있게
+-- 내부 조회 자체는 email로 findByEmail~ 회원가입시 만들었던 verifyCode 전송
+-- 보낼때 링크 하나 첨부 verify_page
+
+3. verifyCode를 보내서 링크를 클릭하면? 바뀌게?
+-- 링크를 클릭하면 http://localhost:8080/mail/verify_page로 이동
+-- 페이지에서 email, verifyCode 입력해서 POST 요청 버튼
+-- /mail/verify 통해서 result_page 출력하고 회원정보 수정
+
+-- 12 / 04 test
+
+1. 기본적 CRUD
+-- where, order by
+
+2. transaction
+
+3. 데이터 사전 (information_schema)
+select table_name
+from information_schema.tables
+where table_schema = "db_study"
+order by table_name asc/desc;
+
+4. 시나리오에 맞게 쿼리를 쓰면 된다
+
+5. join
+
+6. 인덱스 조회
+select index_name
+from information_schema.statistics
+where table_schema = "db_study" and table_name = "user_tb";
+
+7. 인덱스 추가
+create index idx_user_password
+on user_tb(password);
+
+8. sum (값 전부 더하기)
+select sum(user_id) as sum_user_id
+from board_tb;
+
+9. count (갯수 전부 구하기)
+select count(title) as title_count
+from board_tb;

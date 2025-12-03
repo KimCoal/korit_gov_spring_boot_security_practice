@@ -16,10 +16,10 @@ import java.util.List;
 @Builder
 public class User {
     private Integer userId;
+    private String email;
     private String username;
     @JsonIgnore
     private String password;
-    private String email;
     private LocalDateTime createDt;
     private LocalDateTime updateDt;
 

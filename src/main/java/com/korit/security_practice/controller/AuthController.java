@@ -1,13 +1,16 @@
 package com.korit.security_practice.controller;
 
+import com.korit.security_practice.dto.ApiRespDto;
 import com.korit.security_practice.dto.SignInReqDto;
 import com.korit.security_practice.dto.SignUpReqDto;
 import com.korit.security_practice.security.model.Principal;
 import com.korit.security_practice.service.AuthService;
+import com.korit.security_practice.service.MailService;
 import com.korit.security_practice.service.VerifyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignUpReqDto signupReqDto) {
-        return ResponseEntity.ok(authService.addUser(signupReqDto));
+        return ResponseEntity.ok(authService.signup(signupReqDto));
     }
 
     @PostMapping("/signin")
@@ -39,6 +42,7 @@ public class AuthController {
         Integer userId = principal.getUserId();
         return ResponseEntity.ok(verifyService.verifyUser(userId, code));
     }
+
 
 
 }
